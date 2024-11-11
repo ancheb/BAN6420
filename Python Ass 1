@@ -1,0 +1,46 @@
+import random
+
+# Function to generate a list of workers
+def generate_workers(num_workers=400):
+    workers = []
+    for i in range(num_workers):
+        worker = {
+            "name": f"Worker_{i+1}",
+            "salary": random.randint(5000, 30000),  # Random salary between 5000 and 30000
+            "gender": random.choice(["male", "female"]),
+            "level": None  # To be set based on conditions
+        }
+        workers.append(worker)
+    return workers
+
+# Function to assign employee levels and generate payment slips
+def generate_payment_slips(workers):
+    payment_slips = []
+    for worker in workers:
+        try:
+            if worker["salary"] > 10000 and worker["salary"] < 20000:
+                if worker["gender"] == "male":
+                    worker["level"] = "A1"
+            elif worker["salary"] > 7500 and worker["salary"] < 30000 and worker["gender"] == "female":
+                worker["level"] = "A5-F"
+            else:
+                worker["level"] = "B1"  # Default level if conditions do not match
+            
+            # Generate a payment slip in dictionary form for each worker
+            slip = {
+                "name": worker["name"],
+                "salary": worker["salary"],
+                "gender": worker["gender"],
+                "level": worker["level"]
+            }
+            payment_slips.append(slip)
+        
+        except Exception as e:
+            print(f"Error generating payment slip for {worker['name']}: {e}")
+
+    return payment_slips
+
+# Main program
+if __name__ == "__main__":
+    workers = generate_workers()
+    payment_slips = generate_payment_slips(workers)

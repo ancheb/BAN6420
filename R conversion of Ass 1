@@ -1,0 +1,44 @@
+generate_workers <- function(num_workers=400) {
+  workers <- list()
+  for (i in 1:num_workers) {
+    worker <- list(
+      name = paste("Worker", i, sep="_"),
+      salary = sample(5000:30000, 1),
+      gender = sample(c("male", "female"), 1),
+      level = NA
+    )
+    workers[[i]] <- worker
+  }
+  return(workers)
+}
+
+generate_payment_slips <- function(workers) {
+  payment_slips <- list()
+  for (i in 1:length(workers)) {
+    worker <- workers[[i]]
+    tryCatch({
+      if (worker$salary > 10000 & worker$salary < 20000 & worker$gender == "male") {
+        worker$level <- "A1"
+      } else if (worker$salary > 7500 & worker$salary < 30000 & worker$gender == "female") {
+        worker$level <- "A5-F"
+      } else {
+        worker$level <- "B1"
+      }
+      
+      slip <- list(
+        name = worker$name,
+        salary = worker$salary,
+        gender = worker$gender,
+        level = worker$level
+      )
+      payment_slips[[i]] <- slip
+    }, error = function(e) {
+      cat("Error generating payment slip for", worker$name, ": ", e$message, "\n")
+    })
+  }
+  return(payment_slips)
+}
+
+
+workers <- generate_workers()
+payment_slips <- generate_payment_slips(workers)

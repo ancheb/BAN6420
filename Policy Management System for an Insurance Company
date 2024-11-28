@@ -1,0 +1,32 @@
+Python
+# In a separate file (e.g., main.py)
+
+from policyholder import Policyholder
+from product import Product
+from payment import Payment
+
+# Create products
+product1 = Product("Life Insurance", "LI001", "Term life insurance policy", 1000, "Coverage details...")
+
+# Create policyholders
+policyholder1 = Policyholder("Alice Smith", "P001",  "...", "...", "...") 
+policyholder2 = Policyholder("Bob Johnson", "P002", "...", "...", "...")
+
+# Register policyholders (add them to a list or dictionary if you're managing multiple policyholders)
+# ...
+
+# Policyholders purchase a product
+policyholder1.products.append("LI001")
+policyholder2.products.append("LI001")
+
+# Make payments
+payment1 = Payment("PAY001", "P001", "LI001", 1000, "2024-11-27", "2024-11-27", "paid")  # Example payment
+payment2 = Payment("PAY002", "P002", "LI001", 1000, "2024-11-27", "2024-11-27", "paid")  # Example payment
+
+# Process payments
+payment1.process_payment()
+payment2.process_payment()
+
+# Display policyholder details
+print(policyholder1.get_details())
+print(policyholder2.get_details())

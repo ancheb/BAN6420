@@ -1,0 +1,71 @@
+# Implementing CNN in Python
+Load the Dataset
+from keras.datasets import fashion_mnist
+
+# Load dataset
+(train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
+
+Preprocess the Data
+
+# Normalize the pixel values to be between 0 and 1.
+# Reshape the data for compatibility with CNN input shape.
+
+train_images = train_images.reshape((60000, 28, 28, 1)).astype('float32') / 255
+test_images = test_images.reshape((10000, 28, 28, 1)).astype('float32') / 255
+
+# Build the CNN Model
+Layers: Input layer, convolutional, pooling, dense, etc.
+
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
+
+model = Sequential([
+    Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    MaxPooling2D((2, 2)),
+    Conv2D(64, (3, 3), activation='relu'),
+    MaxPooling2D((2, 2)),
+    Flatten(),
+    Dense(64, activation='relu'),
+    Dense(10, activation='softmax')
+])
+
+# Compile the Model
+Loss function: sparse_categorical_crossentropy.
+
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+# Train the Model
+model.fit(train_images, train_labels, epochs=5, batch_size=64)
+
+# Evaluate the Model
+test_loss, test_acc = model.evaluate(test_images, test_labels)
+print(f'Test accuracy: {test_acc}')
+
+# Make Predictions
+predictions = model.predict(test_images[:2])
+
+
+
+## Steps to Create a CNN in R
+
+Use Keras and TensorFlow packages for R.
+library(keras)
+
+# Load the Fashion MNIST dataset and normalize the images.
+fashion_mnist <- dataset_fashion_mnist()
+c(train_images, train_labels) %<-% fashion_mnist$train
+c(test_images, test_labels) %<-% fashion_mnist$test
+
+train_images <- train_images / 255.0
+test_images <- test_images / 255.0
+
+# Construct the CNN with six layers.
+model <- keras_model_sequential() %>%
+  layer_conv_2d(filters = 32, kernel_size = c(3, 3), activation = 'relu',
+                input_shape = c(28, 28, 1)) %>%
+  layer_max_pooling_2d(pool_size = c(2
+
+
+
